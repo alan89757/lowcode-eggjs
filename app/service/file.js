@@ -9,6 +9,9 @@ class FileService extends Service {
     const { ctx } = this;
     this.File = ctx.model.File;
   }
+  async getFileByPk(id) {
+    return this.File.findByPk(id);
+  }
 
   async listFile() {
     const { ctx } = this;

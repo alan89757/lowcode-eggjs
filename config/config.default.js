@@ -3,7 +3,7 @@
 'use strict';
 const path = require('path');
 
-const { ossConfig, yuqueSecret } = require('./secret')
+const { ossConfig, yuqueSecret, mysql } = require('./secret')
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -72,6 +72,11 @@ module.exports = appInfo => {
       },
       menuDataSource: [
         {
+          label: '首页',
+          target: '_self',
+          url: '/',
+        },
+        {
           label: '文档',
           target: '_self',
           url: '/doc',
@@ -94,11 +99,15 @@ module.exports = appInfo => {
     },
   };
 
-  exports.oss = {
+  config.oss = {
     client: {
       ...ossConfig
     },
   };
+
+  config.sequelize = {
+    ...mysql
+  }
 
   return {
     ...config,
