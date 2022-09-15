@@ -40,6 +40,11 @@ module.exports = app => {
   router.patch('/api/v1/files/:id', controller.file.updateFile);
   router.delete('/api/v1/files/:id', controller.file.deleteFile);
   /** lowcode file end */
+
+  /** lowcode block start */
+  router.get('/api/v1/blocks', controller.block.listBlocks);
+  router.post('/api/v1/blocks', controller.block.createBlock);
+  /** lowcode block end */
   
 
 };
