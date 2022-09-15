@@ -16,7 +16,10 @@ class AdminController extends Controller {
 
   async schema() {
     const { ctx } = this;
-    const res = await ctx.oss.get('portal/schema.json');
+    const { page = 'home', schema } = ctx.request.body;
+    const filename = page === 'home' ? 'schema.json' : 'login.json';
+    // const res = await ctx.oss.get('portal/schema.json');
+    const res = await ctx.oss.putStream(`portal/${filename}`, stringToStream(JSON.stringify(schema)));
     console.log('res: ', res);
     ctx.response.set('content-type', 'json');
     ctx.body = res.content;
@@ -29,6 +32,22 @@ class AdminController extends Controller {
     const res = await ctx.oss.putStream('portal/schema.json', stringToStream(JSON.stringify(schema)));
     ctx.body = res || 'ok';
   }
+  
+  async loginView() {
+    const { ctx } = this;
+    ctx.redirect('/admin/preview.html?page=login');
+  }
+
+  async login() {
+    const { ctx } = this;
+    const { username, password } = ctx.request.body;
+    const result = await ctx.service.user.login(username, password);
+    console.log('result: ', result);
+    ctx.body = {
+      status: result ? 'success' : 'failed',
+    };
+  }
+
 
 }
 

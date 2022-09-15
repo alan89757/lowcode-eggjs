@@ -1,3 +1,5 @@
-# Documents Solution Site
+# 低代码使用eggjs存储
 
-*before start, you need to fill yuque token and aliyun secret in config.default.js .*
+```js
+npm run start   // 启动服务
+```
